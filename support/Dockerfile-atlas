@@ -1,0 +1,1 @@
+FROM netflixoss/atlas:1.4.3

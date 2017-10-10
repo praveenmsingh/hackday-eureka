@@ -1,0 +1,20 @@
+version: '2'
+
+services:
+
+  atlas:
+    build:
+      context: .
+      dockerfile: ./Dockerfile-atlas
+
+  grafana:
+    build:
+      context: .
+      dockerfile: ./Dockerfile-grafana
+    environment:
+      - GF_SECURITY_ADMIN_USERNAME
+      - GF_SECURITY_ADMIN_PASSWORD
+    links:
+      - atlas
+    ports:
+      - "3030:3000"
