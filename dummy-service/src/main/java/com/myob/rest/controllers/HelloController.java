@@ -3,6 +3,7 @@ package com.myob.rest.controllers;
 
 import com.netflix.spectator.api.Registry;
 import com.netflix.spectator.api.Timer;
+import org.apache.tomcat.jni.Time;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.autoconfigure.ActuatorMetricWriter;
 import org.springframework.boot.actuate.autoconfigure.ExportMetricReader;
@@ -24,21 +25,15 @@ import java.util.concurrent.ThreadLocalRandom;
 @RestController
 public class HelloController {
 
-
-    @RequestMapping("greeting")
-    public String helloWorld() {
-
-        return "Hello World";
-    }
-
+    static final int SECOND_IN_MS = 1000;
 
     @RequestMapping("metric-mocker")
     public String metricMocker() throws InterruptedException {
         long timeToWait = ThreadLocalRandom.current().nextInt(0, 15 );
 
-        Thread.sleep(timeToWait * 1000);
+        Thread.sleep(timeToWait * SECOND_IN_MS);
 
-        return "you waited just for me about ~" + timeToWait;
+        return "you waited just for me about ~" + timeToWait +" seconds";
     }
 
 
