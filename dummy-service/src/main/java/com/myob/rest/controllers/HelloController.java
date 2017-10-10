@@ -17,18 +17,30 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.sound.midi.SysexMessage;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 
 @RestController
 public class HelloController {
 
 
-    @ExportMetricWriter
     @RequestMapping("greeting")
     public String helloWorld() {
 
         return "Hello World";
     }
+
+
+    @RequestMapping("metric-mocker")
+    public String metricMocker() throws InterruptedException {
+        long timeToWait = ThreadLocalRandom.current().nextInt(0, 15 );
+
+        Thread.sleep(timeToWait * 1000);
+
+        return "you waited just for me about ~" + timeToWait;
+    }
+
 
 }
 
